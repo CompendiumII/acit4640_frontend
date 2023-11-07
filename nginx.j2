@@ -9,6 +9,6 @@ server {
             try_files $uri $uri/ /index.html;
         }
 	location /json {
-                proxy_pass http://{{ ec2_backend_instance_private_ip }}:5000/json;
+                proxy_pass http://{{ ec2_backend_instance_public_dns }}:5000/json;
         }
 }
