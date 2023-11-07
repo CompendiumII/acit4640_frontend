@@ -1,13 +1,14 @@
-server_names_hash_bucket_size 256;
-
 server {
         listen        80;
-        server_name   {{ ec2_instance_public_dns }} "";
+        server_name   {{ ec2_web_instance_public_dns }} "";
 
         root /var/www/html;
         index index.html;
 
         location / {
             try_files $uri $uri/ /index.html;
+        }
+	location /json {
+                proxy_pass http://{{ ec2_backend_instance_private_ip }}:5000/json;
         }
 }
